@@ -4,6 +4,8 @@ import sys
 
 from CalcRating import CalcRating
 from TextDataReader import TextDataReader
+from FindTopStudent import StudentFinder
+from YMLDataReader import YamlDataReader
 
 
 def get_path_from_arguments(args) -> str:
@@ -15,14 +17,23 @@ def get_path_from_arguments(args) -> str:
 
 
 def main():
+
     path = get_path_from_arguments(sys.argv[1:])
 
+
+
+ 
     reader = TextDataReader()
     students = reader.read(path)
     print("Students: ", students)
 
     rating = CalcRating(students).calc()
     print("Rating: ", rating)
+
+    file_path = 'data1.yaml' 
+    yaml_reader = YamlDataReader()
+    manager = StudentFinder(yaml_reader, file_path)
+    manager.print_students_above_90()
 
 
 if __name__ == "__main__":
